@@ -54,7 +54,7 @@ public class UserGenerator {
                 password,
                 Status.active);
         setUpAll(userData);
-        return new UserData(faker.name().firstName(), password, Status.active);
+        return new UserData("Дэниэль", password, Status.active);
     }
 
     public UserData generateActiveUserInvalidPassword() {
@@ -64,7 +64,7 @@ public class UserGenerator {
                 faker.internet().password(),
                 Status.active);
         setUpAll(userData);
-        return new UserData(login, faker.internet().password(), Status.active);
+        return new UserData(login, "54123", Status.active);
     }
 
     public UserData generateBlockedUserInvalidLogin() {
@@ -74,7 +74,7 @@ public class UserGenerator {
                 password,
                 Status.blocked);
         setUpAll(userData);
-        return new UserData(faker.name().firstName(), password, Status.active);
+        return new UserData("Джордан", password, Status.active);
     }
 
     public UserData generateBlockedUserInvalidPassword() {
@@ -84,7 +84,7 @@ public class UserGenerator {
                 faker.internet().password(),
                 Status.blocked);
         setUpAll(userData);
-        return new UserData(login, faker.internet().password(), Status.active);
+        return new UserData(login, "12345", Status.active);
     }
 
 }
