@@ -16,9 +16,9 @@ public class IBankTest {
     // Активный пользователь, валидные логин/пароль
     void shouldTestValidActive() {
         UserData data = userGenerator.generateActiveUser();
-        $("[name=login").setValue(data.getLogin());
-        $("[name=password").setValue(data.getPassword());
-        $("[data-test-id=action-login]").click();
+        $("[name='login'").setValue(data.getLogin());
+        $("[name='password'").setValue(data.getPassword());
+        $("[data-test-id='action-login']").click();
         $(withText("Личный кабинет")).waitUntil(Condition.visible, 3000);
     }
 

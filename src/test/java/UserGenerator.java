@@ -54,7 +54,7 @@ public class UserGenerator {
                 password,
                 Status.active);
         setUpAll(userData);
-        return new UserData("Дэниэль", password, Status.active);
+        return new UserData("дэниэль", password, Status.active);
     }
 
     public UserData generateActiveUserInvalidPassword() {
