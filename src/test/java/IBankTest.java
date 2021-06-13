@@ -5,7 +5,8 @@ import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class IBankTest {
-    private final UserGenerator userGenerator = new UserGenerator();
+
+    private UserGenerator userGenerator;
 
     @BeforeEach
     void setUp() {
@@ -16,9 +17,9 @@ public class IBankTest {
     // Активный пользователь, валидные логин/пароль
     void shouldTestValidActive() {
         UserData data = userGenerator.generateActiveUser();
-        $("[name='login'").setValue(data.getLogin());
-        $("[name='password'").setValue(data.getPassword());
-        $("[data-test-id='action-login']").click();
+        $("[name=login").setValue(data.getLogin());
+        $("[name=password").setValue(data.getPassword());
+        $("[data-test-id=action-login]").click();
         $(withText("Личный кабинет")).waitUntil(Condition.visible, 3000);
     }
 
@@ -29,7 +30,7 @@ public class IBankTest {
         $("[name=login]").setValue(data.getLogin());
         $("[name=password").setValue(data.getPassword());
         $("[data-test-id=action-login]").click();
-        boolean exists = $("[data-test-id=error-notification] .notification__title").exists();
+        $(withText("Пользователь заблокирован")).waitUntil(Condition.visible, 3000);
     }
     @Test
     // Активный пользователь, невалидный логин
@@ -38,7 +39,7 @@ public class IBankTest {
         $("[name=login]").setValue(data.getLogin());
         $("[name=password").setValue(data.getPassword());
         $("[data-test-id=action-login]").click();
-        boolean exists = $("[data-test-id=error-notification] .notification__title").exists();
+        $(withText("Неверно указан логин или пароль")).waitUntil(Condition.visible, 3000);
     }
     @Test
     // Активный пользователь, пароль невалиден
@@ -47,7 +48,7 @@ public class IBankTest {
         $("[name=login]").setValue(data.getLogin());
         $("[name=password").setValue(data.getPassword());
         $("[data-test-id=action-login]").click();
-        boolean exists = $("[data-test-id=error-notification] .notification__title").exists();
+        $(withText("Неверно указан логин или пароль")).waitUntil(Condition.visible, 3000);
     }
     @Test
     // Блокированный пользователь, невалидный логин
@@ -56,7 +57,7 @@ public class IBankTest {
         $("[name=login]").setValue(data.getLogin());
         $("[name=password").setValue(data.getPassword());
         $("[data-test-id=action-login]").click();
-        boolean exists = $("[data-test-id=error-notification] .notification__title").exists();
+        $(withText("Неверно указан логин или пароль")).waitUntil(Condition.visible, 3000);
     }
     @Test
     // Заблокированный пользователь, невалидный пароль
@@ -65,6 +66,6 @@ public class IBankTest {
         $("[name=login]").setValue(data.getLogin());
         $("[name=password").setValue(data.getPassword());
         $("[data-test-id=action-login]").click();
-        boolean exists = $("[data-test-id=error-notification] .notification__title").exists();
+        $(withText("Неверно указан логин или пароль")).waitUntil(Condition.visible, 3000);
     }
 }

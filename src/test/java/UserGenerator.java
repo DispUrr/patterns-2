@@ -10,7 +10,7 @@ import static io.restassured.RestAssured.given;
 
 public class UserGenerator {
 
-    private final Faker faker = new Faker(new Locale("ru"));
+    private static final Faker faker = new Faker(new Locale("ru"));
     private static RequestSpecification requestSpec = new RequestSpecBuilder()
             .setBaseUri("http://localhost")
             .setPort(9999)
@@ -19,7 +19,7 @@ public class UserGenerator {
             .log(LogDetail.ALL)
             .build();
 
-    void setUpAll(UserData userData) {
+    static void makeRequest(UserData userData) {
         given()
                 .spec(requestSpec)
                 .body(userData)
@@ -29,61 +29,61 @@ public class UserGenerator {
                 .statusCode(200);
     }
 
-    public UserData generateActiveUser() {
+    public static UserData generateActiveUser() {
         UserData userData = new UserData(
                 faker.name().firstName(),
                 faker.internet().password(),
                 Status.active);
-        setUpAll(userData);
+        makeRequest(userData);
         return userData;
     }
 
-    public UserData generateBlockedUser() {
+    public static UserData generateBlockedUser() {
         UserData userData = new UserData(
                 faker.name().firstName(),
                 faker.internet().password(),
                 Status.blocked);
-        setUpAll(userData);
+        makeRequest(userData);
         return userData;
     }
 
-    public UserData generateActiveUserInvalidLogin() {
+    public static UserData generateActiveUserInvalidLogin() {
         String password = faker.internet().password(); // сгенерированный пароль верный
         UserData userData = new UserData(
                 faker.name().firstName(),
                 password,
                 Status.active);
-        setUpAll(userData);
+        makeRequest(userData);
         return new UserData(faker.name().firstName(), password, Status.active);
     }
 
-    public UserData generateActiveUserInvalidPassword() {
+    public static UserData generateActiveUserInvalidPassword() {
         String login = faker.name().firstName();
         UserData userData = new UserData(
                 login,
                 faker.internet().password(),
                 Status.active);
-        setUpAll(userData);
+        makeRequest(userData);
         return new UserData(login, faker.internet().password(), Status.active);
     }
 
-    public UserData generateBlockedUserInvalidLogin() {
+    public static UserData generateBlockedUserInvalidLogin() {
         String password = faker.internet().password();
         UserData userData = new UserData(
                 faker.name().firstName(),
                 password,
                 Status.blocked);
-        setUpAll(userData);
+        makeRequest(userData);
         return new UserData(faker.name().firstName(), password, Status.active);
     }
 
-    public UserData generateBlockedUserInvalidPassword() {
+    public static UserData generateBlockedUserInvalidPassword() {
         String login = faker.name().firstName();
         UserData userData = new UserData(
                 login,
                 faker.internet().password(),
                 Status.blocked);
-        setUpAll(userData);
+        makeRequest(userData);
         return new UserData(login, faker.internet().password(), Status.active);
     }
 
